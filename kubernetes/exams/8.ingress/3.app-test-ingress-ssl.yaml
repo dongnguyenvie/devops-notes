@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: app
   namespace: ingress-controller
+  annotations:
+    kubernetes.io/ingress.class: haproxy
 spec:
   tls:
     - hosts:

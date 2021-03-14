@@ -67,6 +67,10 @@ case2: it will pick pods, pods will be endpoint of it
 mac host path: /etc/hosts
 watch -n 1 [shell]
 yum install nfs-utils
+
+openssl req -x509 -newkey rsa:2048 -nodes -days 365 -keyout privkey.pem -out fullchain.pem -subj '/CN=dongnguyen.test'
+kubectl create secret tls dongnguyen-test --cert=fullchain.pem --key=privkey.pem -n ingress-controller
+
 ```
 
 ## vim
