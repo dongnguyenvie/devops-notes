@@ -3,9 +3,7 @@
 ```
 hba(HorizontalPodAutoscaler) > rs(ReplicaSet, it manage pods by label) > pod
 deploy -> rs -> pods
-```
 
-```
 hba, rs, pods
 kubectl get no -o wide
 kubectl get pods -o wide
@@ -36,7 +34,7 @@ kubectl get hpa/deployapp -o yaml > 2.hpa.yaml (save yaml to file)
 
 kubectl get endpoints
 
-docker build -t dongnguyenvie/public:kb_nginx -f Dockerfile 
+docker build -t dongnguyenvie/public:kb_nginx -f Dockerfile
 docker push dongnguyenvie/public:kb_nginx
 ```
 
@@ -53,6 +51,7 @@ kubectl top pod
 ```
 
 ### Service
+
 ```
 forward requuesting to pods
 kubectl get svc
@@ -62,21 +61,24 @@ case1: it's active the same proxy, it will forward requesting to another server
 case2: it will pick pods, pods will be endpoint of it
 ```
 
-### terminal
+### Terminal
 
 ```
-code /etc/hosts
+mac host path: /etc/hosts
 watch -n 1 [shell]
 yum install nfs-utils
 ```
 
-## vi
+## vim
 
 ```
+exist: esc
+insert: i
 save and exist: :wq
 ```
 
-### note
+### Note
+
 ```
 pods was created by replicateRest or deployment
 ---
@@ -109,55 +111,43 @@ CronJob (cj) - chạy các Job theo một lịch định sẵn. Việc lên lị
 Ingress là thành phần được dùng để điều hướng các yêu cầu traffic giao thức HTTP và HTTPS từ bên ngoài (interneet) vào các dịch vụ bên trong Cluster.
 
 ```
-### cronbtab
-<table class="table table-borderless text-center">
 
-<tbody>
+### Cronbtab
 
-<tr class="bg-dark text-light">
+![cronbtab](./assests/crontab.png)
 
-<td>*</td>
-
-<td>*</td>
-
-<td>*</td>
-
-<td>*</td>
-
-<td>*</td>
-
-<td>script</td>
-
-</tr>
-
-<tr class="badge-warning">
-
-<td class="border-right">phút `1 - 59`</td>
-
-<td class="border-right">giờ `0 - 23`</td>
-
-<td class="border-right">ngày `1 - 31`</td>
-
-<td class="border-right">tháng `1 - 12`</td>
-
-<td class="border-right">thứ `0 - 7` `0=chủ nhật` `7=thứ bảy`</td>
-
-<td>lệnh hoặc script được chạy</td>
-
-</tr>
-
-</tbody>
-
-</table>
 ```
 Vậy mỗi dòng thường có 6 cột dữ liệu, 5 cột đầu để xác định thời điểm chạy (thời gian). Cột thứ 6 là lệnh chạy (thường là một script).
 
 Các cột thời gian, loại thời gian nào luôn xảy ra để dấu * (ví dụ mọi phút thì cột phút để dấu *, mọi giờ thì cột giờ để *, mọi ngày thì cột ngày để * ....) còn muốn xảy ra ở một thời điểm cụ thể thì điền thời điểm đó vào.
 ```
 
-### keywords:
-```
+### Keywords:
 
-K13 - Sử dụng Persistent Volume (pv) NFS trong kubernetees 
+```
+K02 - Cài đặt và sử dụng Kubernetes Dashboard by XuanThuLab 21 minutes
+
+K03 - Sử dụng công cụ K9S quản lý K8S - Kubernetes
+
+K06 - POD trong Kubernetes, Pod nhiều container, Volume trong POD (phần 2)
+
+K07 - ReplicaSet và HPA trong Kubernetes
+
+K08 - Deployment trong Kubernetes triển khai cập nhật và scale
+
+K09 - Triển khai Metrics Server trên Kubernetes
+
+K10 - Sử dụng Service và Secret Tls trong Kubernetes
+
+K11 - DaemonSet, Job, CronJob trong Kubernetes
+
+K12 - Sử dụng Persistent Volume (pv) và Persistent Volume Claim (pvc) trong Kubernetes
+
+K13 - Sử dụng Persistent Volume (pv) NFS trong kubernetees
+
 K14 - Sử dụng Ingress trong Kubernetes
+
+K15 - Triển khai NGINX Ingress Controller trong Kubernetes
+
+Sử dụng Rancher để quản lý Kubernetes Cluster
 ```
