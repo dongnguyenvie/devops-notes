@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app
+  namespace: nginx-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - dongnguyen.test
+      secretName: dongnguyen-test
+
+    # - hosts:
+    #   - otherdomain.coms
+    #   secretName: otherssl-ssl
+  rules:
+    - host: dongnguyen.test
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: http-test-svc
+              servicePort: 80

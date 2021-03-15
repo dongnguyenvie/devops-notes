@@ -36,6 +36,10 @@ kubectl get endpoints
 
 docker build -t dongnguyenvie/public:kb_nginx -f Dockerfile
 docker push dongnguyenvie/public:kb_nginx
+
+kubectl create secret tls dongnguyen-test --cert=fullchain.pem --key=privkey.pem -n ingress-controller
+
+https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
 ```
 
 ### metric
