@@ -133,7 +133,7 @@ Các cột thời gian, loại thời gian nào luôn xảy ra để dấu * (v�
 ### Keywords:
 
 ```
-K02 - Cài đặt và sử dụng Kubernetes Dashboard by XuanThuLab 21 minutes
+K02 - Cài đặt và sử dụng Kubernetes Dashboard
 
 K03 - Sử dụng công cụ K9S quản lý K8S - Kubernetes
 

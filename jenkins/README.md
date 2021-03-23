@@ -74,3 +74,19 @@ iptables -t nat -A OUTPUT -p tcp --dport 443 -d 127.0.0.1 \
 systemctl stop jenkins.service
 systemctl start jenkins.service
 ```
+
+```
+change permission
+chown -Rf jenkins:root jenkins/ # It means user jenkins has a permission to access "jenkins/" dir
+
+[url]/github-webhook/
+```
+
+```
+#!/bin/bash
+ssh -T -i [path pem file] [username@ip] << EOF
+cd /abc/ss
+git pull
+
+EOF
+```
