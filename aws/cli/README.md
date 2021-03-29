@@ -1,0 +1,4 @@
+```
+aws --version
+aws configure
+```
