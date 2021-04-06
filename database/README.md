@@ -48,6 +48,60 @@ FROM movies
 UNION
 SELECT shows.initial_year as id, shows.show_title as title
 FROM shows
+----- BETWEEN
+>>>
+SELECT movie_title, year
+FROM movies
+WHERE year >= 1982 and year <= 1995
+>>>
+SELECT movie_title, year
+FROM movies
+WHERE year BETWEEN 1982 and 1995
+----- IN
+>>>
+SELECT movie_title, year
+FROM movies
+WHERE movie_id = 1 or movie_id = 2
+>>>
+SELECT movie_title, year
+FROM movies
+WHERE movie_id in (1, 2)
+---
+CREATE FULLTEXT INDEX id_txt ON `shows` (show_title);
+-----
+SELECT b.name as b_name, c.name as c_name, c.id, b.best_friend
+FROM b LEFT JOIN c
+ON c.id = b.best_friend;
+
+SELECT b.name as b_name, c.name as c_name, c.id, b.best_friend
+FROM b RIGHT JOIN c
+ON c.id = b.best_friend;
+
+SELECT b.name as b_name, c.name as c_name, c.id, b.best_friend
+FROM b INNER JOIN c
+ON c.id = b.best_friend
+---- 
+SELECT p.productName, pl.productLine, c.customerName 
+FROM productlines AS pl INNER JOIN products AS p 
+ON pl.productLine = p.productLine 
+INNER JOIN orderdetails AS od 
+USING (productCode) 
+INNER JOIN orders AS o 
+USING (orderNumber) 
+INNER JOIN customers AS c 
+USING (customerNumber) 
+INNER JOIN employees AS e 
+ON c.salesRepEmployeeNumber = e.employeeNumber 
+INNER JOIN offices AS off 
+USING (officeCode) 
+WHERE pl.productLine = 'Planes' AND off.city = 'Sydney';
+---- many to many
+>> actors | movies | actors_movies
+select m.name
+from movies m
+inner join actors_movies am on m.id = am.movie_id
+inner join actors a on am.actor_id = a.id
+where a.name = 'Christopher Walken'
 ```
 
 ### Aggregate Functions
@@ -122,3 +176,66 @@ DESCRIBE https://dev.mysql.com/doc/refman/5.7/en/describe.html
 EXPLAIN https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain-output-columns
 User defined variable https://dev.mysql.com/doc/refman/5.7/en/user-variables.html
 ```
+
+### CREATE INDEX
+```
+https://dev.mysql.com/doc/refman/5.7/en/create-index.html
+```
+
+```
+-> Với 1 ứng dụng có tần suất đọc cao như trang tin tức,blog... thì bạn nên dùng MyISAM. -> Với ứng dụng có tần suất insert và update cao như: Diễn đàn, mạng xã hội.. thì bạn nên dùng InnoDB -> Bạn nên dùng MEMORY Storage Engine cho các table chứa dữ liệu tạm và thông tin phiên làm việc của người dùng (Session) -> Việc chuyển đổi 1 table từ storage engine này sang storage engine khác sẽ diễn ra tương đối lâu nếu dữ liệu trên table lớn. Do đó cần kiên nhẫn.
+
+```
+
+``` FOREIGN KEY
+ALTER TABLE characters DROP FOREIGN KEY `fk_character_race`; 
+DROP TABLE IF EXISTS races;
+DROP TABLE IF EXISTS characters;
+
+CREATE TABLE races (
+   race_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   race_name VARCHAR(30) NOT NULL
+)ENGINE=INNODB;
+
+CREATE TABLE characters(
+    character_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY Key,
+    character_name VARCHAR(50) NOT NULL,
+    race_id TINYINT UNSIGNED NOT NULL, 
+    INDEX `idx_race`(race_id),
+    CONSTRAINT `fk_character_race`
+    FOREIGN KEY (race_id)
+    REFERENCES races(race_id) ON UPDATE CASCADE ON DELETE RESTRICT
+)ENGINE=INNODB;
+```
+
+### datetime-queries.sql
+```
+-- '2019-05-25 13:00:10.123456'  -- DATETIME
+-- '2018-05-26 11:00:10.133333'
+-- '2019-04-01'  -- DATE
+-- '2019-02-03'  
+-- '09:20:00.123456' -- TIME
+-- '15:20:00.123456'
+-- 1559335502  -- TIMESTAMP
+
+ SELECT UNIX_TIMESTAMP('2019-05-25 13:00:10.123456'), UNIX_TIMESTAMP(), NOW(), SYSDATE(6);
+
+ SELECT ADDDATE('2019-04-01', INTERVAL 3 DAY);  -- ADDTIME()
+ SELECT SUBDATE('2019-04-01', INTERVAL 3 DAY);  -- SUBTIME()
+ SELECT DATEDIFF('2019-04-01', '2019-02-03'), DATEDIFF('2019-02-03', '2019-04-01'); -- TIMEDIFF()
+
+ SELECT TIMESTAMPDIFF(MONTH, '2019-04-01', '2019-02-01'), TIMESTAMPDIFF(MINUTE, '2019-05-25 13:00:10.123456', '2018-05-26 11:00:10.133333');
+
+ SELECT MAKETIME(14, 22, 1);
+
+ SELECT LAST_DAY('2019-02-03');
+
+ SELECT GET_FORMAT(DATETIME, 'USA'), GET_FORMAT(DATETIME, 'EUR'), GET_FORMAT(DATETIME, 'ISO');
+      
+ SELECT DATE_FORMAT('2019-05-25 13:00:10.123456', '%Y-%m-%d %H:%i:%s');
+
+ https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html
+ https://dev.mysql.com/doc/refman/5.7/en/create-view.html
+```
+
+https://dev.mysql.com/doc/refman/5.7/en/create-function.html

@@ -3,7 +3,7 @@
     # This first-listed virtual host is also the default for *:80
     ServerName www.aws.quynhdev.com
     ServerAlias aws.quynhdev.com
-    DocumentRoot "/var/www/quynhdev_http"
+    DocumentRoot "/var/www/html"
 </VirtualHost>
 
 <VirtualHost *:443>
