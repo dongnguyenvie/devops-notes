@@ -1,4 +1,3 @@
 ```
 Elastic IP == static ip
-
 ```
