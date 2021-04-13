@@ -1,8 +1,9 @@
+## ELK
+```
 Elasticsearch - máy chủ lưu trữ và tìm kiếm dữ liệu
 Logstash - thành phần xử lý dữ liệu, sau đó nó gửi dữ liệu nhận được cho Elasticsearch để lưu trữ
 Kibana - ứng dụng nền web để tìm kiếm và xem trực quan các logs
 Beats - gửi dữ liệu thu thập từ log của máy đến Logstash
-```
 /etc/kibana/kibana.yml
 /etc/filebeat/filebeat.yml
 filebeat modules enable system ...
