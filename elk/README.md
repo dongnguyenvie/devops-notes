@@ -9,7 +9,7 @@ Beats - gửi dữ liệu thu thập từ log của máy đến Logstash
 filebeat modules enable system ...
 ```
 
-### logstasg
+### Logstash
 ```
 echo 'input {
   beats {
